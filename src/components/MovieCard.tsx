@@ -1,5 +1,7 @@
 import type { Movie } from '../types/Movie';
 import {useWatchlist} from "../context/WatchlistContext";
+import { Link } from "react-router-dom";
+
 
 
 interface MovieCardProps {
@@ -23,7 +25,11 @@ function MovieCard({ movie }: MovieCardProps) {
   />
 
   <div className="p-4">
-    <h2 className="text-xl font-bold mb-2">{movie.title}</h2>
+    <Link to={`/movie/${movie.id}`}>
+  <h2 className="text-xl font-bold mb-2">
+    {movie.title}
+  </h2>
+</Link>
 
     <p className="text-gray-600">{movie.year}</p>
 
