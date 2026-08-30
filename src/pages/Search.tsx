@@ -30,6 +30,7 @@ interface TmdbResponse {
 
 function Search() {
   const [searchTerm, setSearchTerm] = useState("");
+  const [searchInput, setSearchInput] = useState("");
 
   const url = `https://api.themoviedb.org/3/search/multi?api_key=${import.meta.env.VITE_TMDB_API_KEY}&query=${encodeURIComponent(searchTerm)}`;
 
@@ -61,9 +62,17 @@ function Search() {
       <h1>Film & Dizi Ara</h1>
 
       <SearchBar
-        searchTerm={searchTerm}
-        onSearch={setSearchTerm}
-      />
+  searchTerm={searchInput}
+  onChange={setSearchInput}
+  onSubmit={() => {
+    if (searchInput.trim() === "") {
+      alert("Lütfen film veya dizi adı girin.");
+      return;
+    }
+
+    setSearchTerm(searchInput);
+  }}
+/>
 
       {loading && <p>Yükleniyor...</p>}
 
