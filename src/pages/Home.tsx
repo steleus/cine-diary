@@ -2,6 +2,7 @@ import MovieGrid from "../components/MovieGrid";
 import Navbar from "../components/Navbar";
 import useFetch from "../hooks/useFetch";
 import type { Movie } from "../types/Movie";
+import Spinner from "../components/Spinner";
 
 interface TmdbMovie {
   id: number;

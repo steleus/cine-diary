@@ -18,11 +18,13 @@ function MovieCard({ movie }: MovieCardProps) {
 
     return (
         <div className="bg-white rounded-lg shadow-md overflow-hidden">
+  {movie.poster && (
   <img
-    src={movie.poster ?? ""}
+    src={movie.poster}
     alt={movie.title}
     className="w-full h-80 object-cover"
   />
+)}
 
   <div className="p-4">
     <Link to={`/movie/${movie.id}`}>
