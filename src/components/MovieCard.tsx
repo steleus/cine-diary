@@ -15,23 +15,41 @@ function MovieCard({ movie }: MovieCardProps) {
 
 
     return (
-        <div>
-            <img src={movie.poster ?? ""} alt={movie.title} />
-            <h2>{movie.title}</h2>
-            <p>{movie.year}</p>
-            <p>{movie.type === 'movie' ? 'Film' : 'Dizi'}</p>
-            <p>⭐ {movie.rating}</p>
-            <p>{movie.description}</p>
+        <div className="bg-white rounded-lg shadow-md overflow-hidden">
+  <img
+    src={movie.poster ?? ""}
+    alt={movie.title}
+    className="w-full h-80 object-cover"
+  />
 
-            <button onClick={() => inWatchlist ? removeFromWatchlist(movie.id) : addToWatchlist(movie)}>
-                {inWatchlist ? 'Listeden Kaldır' : 'İzleme Listeme Ekle'}
-            </button>
+  <div className="p-4">
+    <h2 className="text-xl font-bold mb-2">{movie.title}</h2>
 
+    <p className="text-gray-600">{movie.year}</p>
 
+    <p className="text-gray-600">
+      {movie.type === "movie" ? "Film" : "Dizi"}
+    </p>
 
+    <p className="mt-2">⭐ {movie.rating}</p>
 
-        </div>
-    );
+    <p className="text-gray-600 mt-2 line-clamp-3">
+      {movie.description}
+    </p>
+
+    <button
+      className="w-full mt-4 bg-black text-white py-2 rounded hover:bg-gray-800"
+      onClick={() =>
+        inWatchlist
+          ? removeFromWatchlist(movie.id)
+          : addToWatchlist(movie)
+      }
+    >
+      {inWatchlist ? "Listeden Çıkar" : "İzleme Listesine Ekle"}
+    </button>
+  </div>
+</div>
+);
 }
 
 export default MovieCard;

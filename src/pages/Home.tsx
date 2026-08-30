@@ -50,10 +50,10 @@ function Home() {
     <>
     <Navbar />
     
-    <main>
-      <h1>CineDiary</h1>
+    <main className="min-h-screen bg-gray-100 px-4 py-8">
+      <h1 className="text-4xl font-bold text-center mb-4">CineDiary</h1>
 
-      <p>İzlediğin film ve dizileri keşfet, kaydet ve takip et.</p>
+      <p className="text-center text-gray-600 mb-8">İzlediğin film ve dizileri keşfet, kaydet ve takip et.</p>
       {loading && <p>Yükleniyor...</p>}
 
       {error && (
