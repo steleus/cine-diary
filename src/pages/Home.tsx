@@ -1,28 +1,50 @@
 import MovieGrid from "../components/MovieGrid";
 import Navbar from "../components/Navbar";
+import useFetch from "../hooks/useFetch";
+import type { Movie } from "../types/Movie";
+
+interface TmdbMovie {
+  id: number;
+  title?: string;
+  name?: string;
+  poster_path: string | null;
+  release_date?: string;
+  first_air_date?: string;
+  vote_average: number;
+  overview: string;
+  media_type: "movie" | "tv";
+}
+
+interface TmdbResponse {
+  results: TmdbMovie[];
+}
+
 
 
 function Home() {
-  const movies = [
-    {
-      id: 1,
-      title: "Interstellar",
-      poster: "https://image.tmdb.org/t/p/w500/gEU2QniE6E77NI6lCU6MxlNBvIx.jpg",
-      year: 2014,
-      type: "movie" as const,
-      rating: 8.7,
-      description: "Uzay ve zaman yolculuğunu konu alan bilim kurgu filmi.",
-    },
-    {
-      id: 2,
-      title: "The Dark Knight",
-      poster: "https://image.tmdb.org/t/p/w500/qJ2tW6WMUDux911r6m7haRef0WH.jpg",
-      year: 2008,
-      type: "movie" as const,
-      rating: 9.0,
-      description: "Batman'in Gotham şehrindeki mücadelesini anlatan film.",
-    },
-  ];
+  const url = `https://api.themoviedb.org/3/trending/all/day?api_key=${import.meta.env.VITE_TMDB_API_KEY}`;
+
+  const { data, loading, error, retry } = useFetch<TmdbResponse>(url);
+
+  const movies: Movie[] =
+    data?.results.map((movie) => ({
+      id: movie.id,
+      title: movie.title ?? movie.name ?? "İsimsiz",
+      poster: movie.poster_path
+        ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+        : null,
+      year: Number(
+        (movie.release_date ?? movie.first_air_date ?? "").slice(0, 4)
+      ),
+      type: movie.media_type === "movie" ? "movie" : "series",
+      rating: movie.vote_average,
+      description: movie.overview,
+    })) ?? [];
+  
+
+
+
+
 
   return (
     <>
@@ -32,11 +54,22 @@ function Home() {
       <h1>CineDiary</h1>
 
       <p>İzlediğin film ve dizileri keşfet, kaydet ve takip et.</p>
+      {loading && <p>Yükleniyor...</p>}
 
-      <MovieGrid movies={movies} />
+      {error && (
+        <div>
+          <p>{error}</p>
+          <button onClick={retry}>Tekrar Dene</button>
+        </div>
+      )}
+
+      {!loading && !error && <MovieGrid movies={movies} />}
+
+
+      
     </main>
     </>
   );
-}
 
+}
 export default Home;
