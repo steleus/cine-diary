@@ -1,4 +1,6 @@
 import MovieGrid from "../components/MovieGrid";
+import Navbar from "../components/Navbar";
+
 
 function Home() {
   const movies = [
@@ -23,6 +25,9 @@ function Home() {
   ];
 
   return (
+    <>
+    <Navbar />
+    
     <main>
       <h1>CineDiary</h1>
 
@@ -30,6 +35,7 @@ function Home() {
 
       <MovieGrid movies={movies} />
     </main>
+    </>
   );
 }
 
