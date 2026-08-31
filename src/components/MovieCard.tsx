@@ -27,7 +27,7 @@ function MovieCard({ movie }: MovieCardProps) {
 )}
 
   <div className="p-4">
-    <Link to={`/movie/${movie.id}`}>
+    <Link to={`/movie/${movie.type}/${movie.id}`}>
   <h2 className="text-xl font-bold mb-2 dark:text-white">
     {movie.title}
   </h2>
@@ -41,7 +41,7 @@ function MovieCard({ movie }: MovieCardProps) {
 
     <p className="mt-2">⭐ {movie.rating}</p>
 
-    <p className="text-gray-600 dark:text-gray-300 mt-2 mt-2 line-clamp-3">
+    <p className="text-gray-600 dark:text-gray-300 mt-2 line-clamp-3">
       {movie.description}
     </p>
 

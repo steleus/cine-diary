@@ -2,6 +2,7 @@ import {useParams} from "react-router-dom";
 import useFetch from "../hooks/useFetch";
 import { useWatchlist } from "../context/WatchlistContext";
 import Spinner from "../components/Spinner";
+import ErrorMessage from "../components/ErrorMessage";
 
 
 
@@ -19,10 +20,12 @@ interface MovieDetailData{
 }
 
 function MovieDetail() {
-    const { id } = useParams();
+    const { id, type } = useParams();
     const { addToWatchlist, removeFromWatchlist, isInWatchlist } = useWatchlist();
 
-    const url = `https://api.themoviedb.org/3/movie/${id}?api_key=${import.meta.env.VITE_TMDB_API_KEY}`;
+    const endpoint = type === "series" ? "tv" : "movie";
+
+    const url = `https://api.themoviedb.org/3/${endpoint}/${id}?api_key=${import.meta.env.VITE_TMDB_API_KEY}`;
     const { data, loading, error, retry } = useFetch<MovieDetailData>(url);
 
      return (
@@ -30,10 +33,9 @@ function MovieDetail() {
       {loading && <Spinner />}
 
       {error && (
-        <div>
-          <p>{error}</p>
-          <button onClick={retry}>Tekrar Dene</button>
-        </div>
+         <ErrorMessage
+          message={error}
+          onRetry={retry}/>
       )}
 
       {data && (
@@ -69,7 +71,7 @@ function MovieDetail() {
         year: Number(
           (data.release_date ?? data.first_air_date ?? "").slice(0, 4)
         ),
-        type: "movie",
+        type: data.media_type === "movie" ? "movie" : "series",
         rating: data.vote_average,
         description: data.overview,
       });

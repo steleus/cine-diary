@@ -2,6 +2,7 @@ import MovieGrid from "../components/MovieGrid";
 import useFetch from "../hooks/useFetch";
 import type { Movie } from "../types/Movie";
 import Spinner from "../components/Spinner";
+import ErrorMessage from "../components/ErrorMessage";
 
 interface TmdbMovie {
   id: number;
@@ -57,10 +58,9 @@ function Home() {
       {loading && <Spinner />}
 
       {error && (
-        <div>
-          <p>{error}</p>
-          <button onClick={retry}>Tekrar Dene</button>
-        </div>
+        <ErrorMessage
+            message={error}
+            onRetry={retry}/>
       )}
 
       {!loading && !error && <MovieGrid movies={movies} />}

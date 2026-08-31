@@ -6,6 +6,7 @@ import SearchBar from "../components/SearchBar";
 import useFetch from "../hooks/useFetch";
 import type { Movie } from "../types/Movie";
 import Spinner from "../components/Spinner";
+import ErrorMessage from "../components/ErrorMessage";
 
 
 interface TmdbMovie {
@@ -81,10 +82,9 @@ function Search() {
       {loading && <Spinner />}
 
         {error && (
-          <div>
-            <p className="text-red-600 dark:text-red-400">{error}</p>
-            <button onClick={retry}>Tekrar Dene</button>
-          </div>
+           <ErrorMessage
+            message={error}
+            onRetry={retry}/>
         )}
 
         {!loading && !error && searchTerm && (
