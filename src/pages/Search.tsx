@@ -2,10 +2,11 @@
 
 import { useState } from "react";
 import MovieGrid from "../components/MovieGrid";
-import Navbar from "../components/Navbar";
 import SearchBar from "../components/SearchBar";
 import useFetch from "../hooks/useFetch";
 import type { Movie } from "../types/Movie";
+import Spinner from "../components/Spinner";
+
 
 interface TmdbMovie {
 
@@ -58,8 +59,11 @@ function Search() {
 
 
   return (
-    <main>
-      <h1>Film & Dizi Ara</h1>
+    <main className="min-h-screen bg-white dark:bg-gray-900 px-4 py-8">
+  <h1 className="text-4xl font-bold text-center mb-8 text-black dark:text-white">
+    Film & Dizi Ara
+  </h1>
+  <div className="max-w-xl mx-auto mb-8">
 
       <SearchBar
   searchTerm={searchInput}
@@ -73,12 +77,12 @@ function Search() {
     setSearchTerm(searchInput);
   }}
 />
-
-      {loading && <p>Yükleniyor...</p>}
+</div>
+      {loading && <Spinner />}
 
         {error && (
           <div>
-            <p>{error}</p>
+            <p className="text-red-600 dark:text-red-400">{error}</p>
             <button onClick={retry}>Tekrar Dene</button>
           </div>
         )}

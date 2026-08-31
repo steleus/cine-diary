@@ -17,7 +17,7 @@ function MovieCard({ movie }: MovieCardProps) {
 
 
     return (
-        <div className="bg-white rounded-lg shadow-md overflow-hidden">
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden">
   {movie.poster && (
   <img
     src={movie.poster}
@@ -28,12 +28,12 @@ function MovieCard({ movie }: MovieCardProps) {
 
   <div className="p-4">
     <Link to={`/movie/${movie.id}`}>
-  <h2 className="text-xl font-bold mb-2">
+  <h2 className="text-xl font-bold mb-2 dark:text-white">
     {movie.title}
   </h2>
 </Link>
 
-    <p className="text-gray-600">{movie.year}</p>
+    <p className="text-gray-600 dark:text-gray-300">{movie.year}</p>
 
     <p className="text-gray-600">
       {movie.type === "movie" ? "Film" : "Dizi"}
@@ -41,7 +41,7 @@ function MovieCard({ movie }: MovieCardProps) {
 
     <p className="mt-2">⭐ {movie.rating}</p>
 
-    <p className="text-gray-600 mt-2 line-clamp-3">
+    <p className="text-gray-600 dark:text-gray-300 mt-2 mt-2 line-clamp-3">
       {movie.description}
     </p>
 

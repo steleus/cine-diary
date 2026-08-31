@@ -1,6 +1,8 @@
 import {useParams} from "react-router-dom";
 import useFetch from "../hooks/useFetch";
 import { useWatchlist } from "../context/WatchlistContext";
+import Spinner from "../components/Spinner";
+
 
 
 interface MovieDetailData{
@@ -24,8 +26,8 @@ function MovieDetail() {
     const { data, loading, error, retry } = useFetch<MovieDetailData>(url);
 
      return (
-    <main>
-      {loading && <p>Yükleniyor...</p>}
+    <main className="min-h-screen bg-white dark:bg-gray-900 px-4 py-8">
+      {loading && <Spinner />}
 
       {error && (
         <div>
@@ -35,20 +37,22 @@ function MovieDetail() {
       )}
 
       {data && (
-        <section>
-          <h1 className="text-3xl font-bold mb-4">
+        <section className="max-w-4xl mx-auto bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
+          <h1 className="text-3xl font-bold mb-4 text-black dark:text-white">
             {data.title ?? data.name}</h1>
 
           {data.poster_path && (
             <img
               src={`https://image.tmdb.org/t/p/w500${data.poster_path}`}
               alt={data.title ?? data.name}
+              className="w-full max-w-sm mx-auto rounded-lg mb-6"
             />
           )}
 
-          <p>Puan: {data.vote_average}</p>
+          <p className="text-lg mb-4 text-gray-700 dark:text-gray-200">
+              ⭐ Puan: {data.vote_average}</p>
 
-          <p>{data.overview}</p>
+          <p className="text-gray-700 dark:text-gray-300 leading-relaxed">{data.overview}</p>
 
           <button
   className="mt-4 bg-black text-white py-2 px-4 rounded hover:bg-gray-800"

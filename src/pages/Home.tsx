@@ -1,5 +1,4 @@
 import MovieGrid from "../components/MovieGrid";
-import Navbar from "../components/Navbar";
 import useFetch from "../hooks/useFetch";
 import type { Movie } from "../types/Movie";
 import Spinner from "../components/Spinner";
@@ -49,13 +48,13 @@ function Home() {
 
   return (
     <>
-    <Navbar />
     
-    <main className="min-h-screen bg-gray-100 px-4 py-8">
-      <h1 className="text-4xl font-bold text-center mb-4">CineDiary</h1>
+        <main className="min-h-screen bg-white dark:bg-gray-900 px-4 py-8">
 
-      <p className="text-center text-gray-600 mb-8">İzlediğin film ve dizileri keşfet, kaydet ve takip et.</p>
-      {loading && <p>Yükleniyor...</p>}
+      <h1 className="text-4xl font-bold text-center mb-4 text-black dark:text-white">CineDiary</h1>
+
+      <p className="text-center text-gray-600 dark:text-gray-300 mb-8">İzlediğin film ve dizileri keşfet, kaydet ve takip et.</p>
+      {loading && <Spinner />}
 
       {error && (
         <div>
