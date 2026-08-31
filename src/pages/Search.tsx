@@ -64,7 +64,7 @@ function Search() {
   <h1 className="text-4xl font-bold text-center mb-8 text-black dark:text-white">
     Film & Dizi Ara
   </h1>
-  <div className="max-w-xl mx-auto mb-8">
+  <div className="max-w-xl mx-auto mb-8 ">
 
       <SearchBar
   searchTerm={searchInput}

@@ -16,7 +16,7 @@ function SearchBar({
 
   return (
     <form className="flex flex-col" onSubmit={handleSubmit}>
-      <input className="w-full border border-gray-300 rounded px-4 py-2"
+      <input className="w-full border border-gray-300 rounded px-4 py-2 bg-white text-black dark:bg-gray-700 dark:text-white"
         type="text"
         value={searchTerm}
         onChange={(event) => onChange(event.target.value)}
